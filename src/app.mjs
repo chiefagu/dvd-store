@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 
 import { routes } from "./routes.mjs";
-import { errorHandler } from "./middleware/index.mjs";
+import { errorHandler, notFoundHandler } from "./middleware/index.mjs";
 
 export function buildApp() {
   const app = express();
@@ -11,6 +11,7 @@ export function buildApp() {
 
   routes(app);
 
+  app.use(notFoundHandler);
   app.use(errorHandler);
 
   return app;
