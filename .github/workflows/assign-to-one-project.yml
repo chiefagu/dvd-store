@@ -13,5 +13,5 @@ jobs:
       uses: srggrs/assign-one-project-github-action@1.2.1
       if: github.event.action == 'opened'
       with:
-        project: 'https://github.com/chiefagu/alaba-rental-store/projects/2'
+        project: 'https://github.com/chiefagu/dvd-store/projects/2'
         column_name: 'Backlog'
