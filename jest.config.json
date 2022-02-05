@@ -1,0 +1,15 @@
+{
+  "roots": ["<rootDir>/src"],
+  "testEnvironment":"node",
+  "testMatch": ["**/*.test.*"],
+  "moduleDirectories": ["node_modules", "<rootDir>/src"],
+  "moduleFileExtensions": ["js","mjs","ts"],
+  "transform": {
+    "^.+\\.m?js$": "babel-jest"
+  },
+  "forceExit": true,
+  "verbose": true,
+  "clearMocks": true,
+  "resetMocks": true,
+  "restoreMocks": true
+}
