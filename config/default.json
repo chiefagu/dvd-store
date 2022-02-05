@@ -1,4 +1,5 @@
 {
   "port": 7070,
-  "environment": "development"
+  "environment": "development",
+  "baseUrl": "/api"
 }
