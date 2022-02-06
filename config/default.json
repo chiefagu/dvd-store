@@ -1,5 +1,6 @@
 {
   "port": 7070,
   "environment": "development",
-  "baseUrl": "/api"
+  "baseUrl": "/api",
+  "dbUri": "mongodb://localhost/dvdstore"
 }
