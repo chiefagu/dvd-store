@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "dev": "nodemon --inspect src/app.mjs",
+    "dev": "nodemon --inspect src/index.mjs",
     "lint": "eslint --ignore-path .gitignore --ext .js,.mjs,.ts .",
     "pretty": "prettier --ignore-path .gitignore \"**/*.{js,mjs,ts,tsx,html,json}\"",
     "format": "npm run pretty -- --write",
