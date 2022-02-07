@@ -1,1 +1,2 @@
-export * from "./id.mjs";
+export * from "./Id.mjs";
+export * from "./is-email.mjs";
