@@ -11,3 +11,17 @@ export function mockUserModel(overrides) {
     ...overrides,
   };
 }
+
+export function mockUserDb(overrides) {
+  const userDb = {
+    findByEmail: jest.fn(),
+    findById: jest.fn(),
+    insert: jest.fn(),
+    remove: jest.fn(),
+  };
+
+  return {
+    ...userDb,
+    ...overrides,
+  };
+}

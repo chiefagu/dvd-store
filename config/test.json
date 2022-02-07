@@ -1,0 +1,11 @@
+{
+  "port": 7070,
+  "environment": "development",
+  "baseUrl": "/api",
+  "dbUri": "mongodb://localhost/dvdstore",
+  "salt": "d8976fb6497d2beecaa9cc87a6019cf5",
+  "accesszKey": "3ddc9da9bf13df589582b8da6aa67247",
+  "refreshKey": "a84b8ca19b5faa43649f95c321b9eaaf",
+  "accessTokenTtl": "15m",
+  "refreshTokenTtl": "1y"
+}
