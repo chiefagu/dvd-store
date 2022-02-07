@@ -91,9 +91,12 @@ describe("user entity", () => {
     it("returns valid user attributes", () => {
       const userInput = buildFakeUser();
 
-      const { getId, getName, getEmail, getPassword } = makeUser(userInput);
+      const { getId, getName, getEmail, getPassword } = makeUser({
+        ...userInput,
+        id: userInput._id,
+      });
 
-      expect(getId()).toBe(userInput.id);
+      expect(getId()).toBe(userInput._id);
       expect(getName()).toBe(userInput.name);
       expect(getEmail()).toBe(userInput.email);
       expect(getPassword()).toBe(userInput.password);
