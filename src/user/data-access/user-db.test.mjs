@@ -1,5 +1,5 @@
-import { mockUserModel } from "../../__tests__/fixtures/db.mjs";
-import { buildFakeUser } from "../../__tests__/fixtures/user.mjs";
+import { mockUserModel } from "../../../__tests__/fixtures/db.mjs";
+import { buildFakeUser } from "../../../__tests__/fixtures/user.mjs";
 import { makeUserDb } from "./user-db.mjs";
 
 describe("userDB", () => {
