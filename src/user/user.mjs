@@ -1,11 +1,7 @@
-import { isEmail } from "../utils/is-email.mjs";
+import { isEmail, upperFirst } from "../utils/index.mjs";
 
 export function buildUser({ Id }) {
   return function makeUser({ id = Id.makeId(), name, email, password }) {
-    name = name?.trim();
-    email = email?.trim();
-    password = password?.trim();
-
     if (!Id.validate(id)) {
       throw new Error("invalid id, must supply a valid id");
     }
@@ -47,19 +43,29 @@ export function buildUser({ Id }) {
       );
     }
 
+    const { Nname, Nemail, Npassword } = normalize({ name, email, password });
+
     return Object.freeze({
       getId: function () {
         return id;
       },
       getName: function () {
-        return name;
+        return Nname;
       },
       getEmail: function () {
-        return email;
+        return Nemail;
       },
       getPassword: function () {
-        return password;
+        return Npassword;
       },
     });
+  };
+}
+
+function normalize({ name, email, password }) {
+  return {
+    Nname: upperFirst(name.trim()),
+    Nemail: email.trim().toLowerCase(),
+    Npassword: password.trim(),
   };
 }
