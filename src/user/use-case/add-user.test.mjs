@@ -10,17 +10,19 @@ describe("add-user", () => {
   const addUser = makeAddUser({ userDb, getHash, signJwt, config });
 
   describe("when user exists", () => {
-    it("returns user", async () => {
+    it("throws an error", async () => {
       const userInfo = buildFakeUser();
 
       userDb.findByEmail.mockResolvedValueOnce(userInfo);
 
-      const user = await addUser(userInfo);
+      try {
+        await addUser(userInfo);
 
-      expect(userDb.findByEmail).toHaveBeenCalledWith(userInfo.email);
-      expect(userDb.findByEmail).toHaveBeenCalledTimes(1);
-
-      expect(user).toMatchObject(userInfo);
+        expect(userDb.findByEmail).toHaveBeenCalledWith(userInfo.email);
+        expect(userDb.findByEmail).toHaveBeenCalledTimes(1);
+      } catch (e) {
+        expect(e.message).toMatchInlineSnapshot(`"User already exists"`);
+      }
     });
   });
 

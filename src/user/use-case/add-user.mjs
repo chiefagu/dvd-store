@@ -7,7 +7,7 @@ export function makeAddUser({ userDb, getHash, signJwt, config }) {
     const exists = await userDb.findByEmail(getEmail());
 
     if (exists) {
-      return exists;
+      throw new Error("User already exists");
     }
 
     const hashed = getHash(getPassword());
