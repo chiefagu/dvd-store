@@ -10,7 +10,7 @@ export function makePostGenre({ addGenre, logger }) {
         body: genre,
       };
     } catch (e) {
-      logger.warn(e);
+      logger.warn(e.message, e);
       return {
         headers,
         statusCode: 400,
