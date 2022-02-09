@@ -14,7 +14,7 @@ const logConfig = {
     maxSize: "20m",
   },
   exceptions: {
-    level: "warn",
+    level: "error",
     filename: "logs/Rental-Exceptions-%DATE%.log",
     datePattern: "YYYY-MMM-DD-HH",
     maxFiles: "14d",
