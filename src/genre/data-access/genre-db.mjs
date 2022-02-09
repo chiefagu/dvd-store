@@ -4,6 +4,7 @@ export function makeGenreDb({ genreModel }) {
     findById,
     findByName,
     insert,
+    update,
     remove,
   });
 
@@ -21,6 +22,14 @@ export function makeGenreDb({ genreModel }) {
 
   async function insert(payload) {
     return await genreModel.create(payload);
+  }
+
+  async function update(id, payload) {
+    return await genreModel.findByIdAndUpdate(
+      id,
+      { $set: payload },
+      { new: true }
+    );
   }
 
   async function remove(id) {
