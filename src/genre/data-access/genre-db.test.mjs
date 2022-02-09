@@ -34,6 +34,19 @@ describe("genreDb", () => {
     expect(actual).toEqual(genre);
   });
 
+  it("finds a genre with a given name", async () => {
+    const genre = buildFakeGenre();
+
+    jest.spyOn(genreModel, "findOne").mockResolvedValueOnce(genre);
+
+    const actual = await genreDb.findByName(genre.name);
+
+    expect(genreModel.findOne).toHaveBeenCalledWith({ name: genre.name });
+    expect(genreModel.findOne).toHaveBeenCalledTimes(1);
+
+    expect(actual).toEqual(genre);
+  });
+
   it("saves the genre", async () => {
     const genre = buildFakeGenre();
 

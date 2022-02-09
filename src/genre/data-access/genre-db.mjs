@@ -2,6 +2,7 @@ export function makeGenreDb({ genreModel }) {
   return Object.freeze({
     findAll,
     findById,
+    findByName,
     insert,
     remove,
   });
@@ -12,6 +13,10 @@ export function makeGenreDb({ genreModel }) {
 
   async function findById(id) {
     return await genreModel.findById(id);
+  }
+
+  async function findByName(name) {
+    return await genreModel.findOne({ name });
   }
 
   async function insert(payload) {
