@@ -39,7 +39,7 @@ describe("post genre", () => {
 
       const actual = await postGenre({ body: genre });
 
-      expect(logger.warn).toHaveBeenCalledWith(error);
+      expect(logger.warn).toHaveBeenCalledWith(error.message, error);
       expect(logger.warn).toHaveBeenCalledTimes(1);
 
       expect(actual).toMatchObject({
