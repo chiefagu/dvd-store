@@ -24,9 +24,14 @@ describe("deserialize user middleware", () => {
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.status).toHaveBeenCalledTimes(1);
 
+      expect(logger.warn.mock.calls[0][0]).toMatchInlineSnapshot(
+        `"deserialize-user: Missing access token"`
+      );
+      expect(logger.warn).toHaveBeenCalledTimes(1);
+
       expect(res.json.mock.calls[0][0]).toMatchInlineSnapshot(`
         Object {
-          "message": "missing access token",
+          "message": "Missing access token",
         }
       `);
     });
@@ -51,12 +56,14 @@ describe("deserialize user middleware", () => {
 
       expect(res.json.mock.calls[0][0]).toMatchInlineSnapshot(`
         Object {
-          "message": "invalid access token",
+          "message": "Invalid access token",
         }
       `);
       expect(res.json).toHaveBeenCalledTimes(1);
 
-      expect(logger.warn).toHaveBeenCalledWith("invalid access token");
+      expect(logger.warn.mock.calls[0][0]).toMatchInlineSnapshot(
+        `"deserialize-user: Invalid access token"`
+      );
       expect(logger.warn).toHaveBeenCalledTimes(1);
     });
   });
@@ -80,7 +87,7 @@ describe("deserialize user middleware", () => {
 
       expect(res.json.mock.calls[0][0]).toMatchInlineSnapshot(`
         Object {
-          "message": "expired token",
+          "message": "Expired access token. Missing a refresh token",
         }
       `);
     });

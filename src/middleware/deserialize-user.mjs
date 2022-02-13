@@ -7,8 +7,8 @@ export function makeDeserializeUser({ verifyJwt, reIssueAcessToken, logger }) {
     const refreshToken = req.get("x-refresh-token");
 
     if (!accessToken) {
-      logger.warn("missing access token");
-      return res.status(400).json({ message: "missing access token" });
+      logger.warn("deserialize-user: Missing access token");
+      return res.status(400).json({ message: "Missing access token" });
     }
 
     const { decoded, expired, valid } = verifyJwt({
@@ -16,13 +16,15 @@ export function makeDeserializeUser({ verifyJwt, reIssueAcessToken, logger }) {
       secret: config.get("accessKey"),
     });
 
-    if (!decoded) {
-      logger.warn("invalid access token");
-      return res.status(401).json({ message: "invalid access token" });
+    if (!valid && !refreshToken) {
+      return res
+        .status(401)
+        .json({ message: "Expired access token. Missing a refresh token" });
     }
 
-    if (!valid && !refreshToken) {
-      return res.status(401).json({ message: "expired token" });
+    if (!decoded) {
+      logger.warn("deserialize-user: Invalid access token");
+      return res.status(401).json({ message: "Invalid access token" });
     }
 
     if (refreshToken && expired) {
@@ -38,7 +40,7 @@ export function makeDeserializeUser({ verifyJwt, reIssueAcessToken, logger }) {
       });
 
       if (!result.valid) {
-        return res.status(401).json({ mesage: "invalid token" });
+        return res.status(401).json({ mesage: "Invalid access token" });
       }
 
       req.setHeader("x-accessToken", newAccessToken);
