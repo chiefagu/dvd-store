@@ -21,6 +21,7 @@ export function makeAddUser({ userDb, getHash, signJwt, config }) {
     const payload = {
       _id: user._id,
       email: user.email,
+      isAdmin: user.isAdmin,
     };
 
     const accessToken = signJwt({

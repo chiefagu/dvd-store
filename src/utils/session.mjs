@@ -14,7 +14,7 @@ export async function reIssueAcessToken(refreshToken) {
 
   if (!user) return !!user;
 
-  const payload = { _id: user._id };
+  const payload = { _id: user._id, isAdmin: user.isAdmin };
 
   const newAccessToken = signJwt({
     payload,
