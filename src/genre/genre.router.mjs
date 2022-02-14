@@ -1,7 +1,7 @@
 import express from "express";
 
 import { expressCallBack } from "../express-callback/index.mjs";
-import { deserializeUser } from "../middleware/index.mjs";
+import { deserializeUser, isAdmin } from "../middleware/index.mjs";
 import {
   deleteGenre,
   getGenres,
@@ -15,7 +15,11 @@ export function genreRouter() {
   router.post("/", deserializeUser, expressCallBack(postGenre));
   router.get("/", expressCallBack(getGenres));
   router.put("/:id", deserializeUser, expressCallBack(putGenre));
-  router.delete("/:id", deserializeUser, expressCallBack(deleteGenre));
+  router.delete(
+    "/:id",
+    [deserializeUser, isAdmin],
+    expressCallBack(deleteGenre)
+  );
 
   return router;
 }
