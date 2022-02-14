@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import { makeGenreDb } from "./genre-db.mjs";
 
-const genreSchema = new mongoose.Schema({
+export const genreSchema = new mongoose.Schema({
   name: {
     type: String,
     minlength: 3,
