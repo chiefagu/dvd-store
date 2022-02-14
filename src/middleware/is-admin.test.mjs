@@ -18,7 +18,7 @@ describe("isAdmin middleware", () => {
 
       expect(res.json.mock.calls[0][0]).toMatchInlineSnapshot(`
         Object {
-          "message": "unauthorized user",
+          "message": "Can't perform this action",
         }
       `);
 
