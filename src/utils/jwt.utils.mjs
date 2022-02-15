@@ -14,7 +14,7 @@ export function verifyJwt({ token, secret }) {
       expired: false,
     };
   } catch (err) {
-    logger.warn(err);
+    logger.warn("verifyJwt", err);
     return {
       valid: false,
       decoded: null,
