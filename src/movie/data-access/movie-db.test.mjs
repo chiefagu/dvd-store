@@ -27,7 +27,7 @@ describe("movie db", () => {
 
     jest.spyOn(movieModel, "find").mockResolvedValue(movies);
 
-    const found = await movieDb.findAll(movies.id);
+    const found = await movieDb.findAll();
 
     expect(movieModel.find).toHaveBeenCalledTimes(1);
     expect(movieModel.find).toHaveBeenCalledWith(/** nothing */);
