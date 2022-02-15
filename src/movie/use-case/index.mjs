@@ -6,4 +6,4 @@ import { genreDb } from "../../genre/data-access/index.mjs";
 import { movieDb } from "../data-access/index.mjs";
 
 export const addMovie = makeAddMovie({ Id, genreDb, movieDb });
-export const listMovies = makeListMovies({ genreDb });
+export const listMovies = makeListMovies({ movieDb });
