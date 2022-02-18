@@ -9,8 +9,13 @@ export function makeEditMovie({ movieDb, genreDb, Id }) {
     const exists = await movieDb.findById(id);
     if (!exists) throw new Error("no such movie exists");
 
-    const { getTitle, getDailyRentalRate, getNumberInStock, getGenreId } =
-      makeMovie({ id, genreId, ...changes });
+    const {
+      getId,
+      getTitle,
+      getDailyRentalRate,
+      getNumberInStock,
+      getGenreId,
+    } = makeMovie({ id, genreId, ...changes });
 
     const genre = await genreDb.findById(getGenreId());
 
@@ -18,7 +23,7 @@ export function makeEditMovie({ movieDb, genreDb, Id }) {
       throw new Error("no such genre exists");
     }
 
-    const movie = await movieDb.update({
+    const movie = await movieDb.update(getId(), {
       title: getTitle(),
       genre: { _id: genre._id, name: genre.name },
       dailyRentalRate: getDailyRentalRate(),
