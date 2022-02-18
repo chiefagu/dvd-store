@@ -109,7 +109,7 @@ describe("edit movie use-case", () => {
         expect(genreDb.findById).toHaveBeenCalledWith(userInput.genreId);
         expect(genreDb.findById).toHaveBeenCalledTimes(1);
 
-        expect(movieDb.update).toHaveBeenCalledWith({
+        expect(movieDb.update).toHaveBeenCalledWith(userInput.id, {
           title: userInput.title,
           genre: { _id: genre._id, name: genre.name },
           dailyRentalRate: userInput.dailyRentalRate,
