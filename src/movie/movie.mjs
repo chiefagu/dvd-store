@@ -37,6 +37,7 @@ export function buildMovie({ Id }) {
     }
     return {
       getId: () => id,
+      getGenreId: () => genreId,
       getTitle: () => upperFirst(title.trim()),
       getNumberInStock: () => numberInStock,
       getDailyRentalRate: () => dailyRentalRate,
