@@ -44,7 +44,7 @@ export function makeDeserializeUser({ verifyJwt, reIssueAcessToken, logger }) {
       }
 
       req.setHeader("x-accessToken", newAccessToken);
-      req.user = decoded;
+      req.user = result.decoded;
       return next();
     }
 
