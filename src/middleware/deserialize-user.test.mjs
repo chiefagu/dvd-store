@@ -125,6 +125,47 @@ describe("deserialize user middleware", () => {
   });
 
   describe("jwt token is valid but expired", () => {
+    describe("failed to reissue a new access token", () => {
+      it("responds with a 401 code and message", async () => {
+        const res = { status: jest.fn(() => res), json: jest.fn(() => res) };
+        const req = { get: jest.fn(), setHeader: jest.fn() };
+        const next = jest.fn();
+
+        req.get
+          .mockReturnValueOnce("fake-token")
+          .mockReturnValue("refresh-token");
+
+        const decoded = "was decoded";
+        const userExpiredJwt = { decoded, expired: true, valid: true };
+        const badNewToken = { decoded: {}, expired: false, valid: false };
+
+        verifyJwt
+          .mockReturnValueOnce(userExpiredJwt)
+          .mockReturnValue(badNewToken);
+
+        const fakeNewToken = { valid: false, decoded: {}, expired: false };
+        reIssueAcessToken.mockResolvedValueOnce(fakeNewToken);
+
+        await deserializeUser(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(401);
+        expect(res.json).toHaveBeenCalledTimes(1);
+        expect(res.json.mock.calls[0]).toMatchInlineSnapshot(`
+          Array [
+            Object {
+              "mesage": "Invalid access token",
+            },
+          ]
+        `);
+
+        expect(verifyJwt).toHaveBeenCalledTimes(2);
+
+        expect(req.setHeader).not.toHaveBeenCalled();
+
+        expect(next).not.toHaveBeenCalled();
+      });
+    });
+
     describe("succesfully reissued a new access token", () => {
       it("sets x-accesToken header to the new token and calls next", async () => {
         const res = { status: jest.fn(() => res), json: jest.fn(() => res) };
