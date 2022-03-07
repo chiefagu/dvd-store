@@ -60,6 +60,23 @@ describe("genreDb", () => {
     expect(actual).toEqual(genre);
   });
 
+  it("updates the genre", async () => {
+    const genre = buildFakeGenre();
+
+    jest.spyOn(genreModel, "findByIdAndUpdate").mockResolvedValueOnce(genre);
+
+    const actual = await genreDb.update(genre._id, genre);
+
+    expect(genreModel.findByIdAndUpdate).toHaveBeenCalledWith(
+      genre._id,
+      { $set: genre },
+      { new: true }
+    );
+    expect(genreModel.findByIdAndUpdate).toHaveBeenCalledTimes(1);
+
+    expect(actual).toEqual(genre);
+  });
+
   it("deletes the genre", async () => {
     const genre = buildFakeGenre();
 
