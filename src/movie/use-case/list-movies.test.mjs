@@ -46,4 +46,16 @@ describe("list movies", () => {
       }
     });
   });
+
+  describe("no movies found", () => {
+    it("throws an error", async () => {
+      const noMovies = [];
+      jest.spyOn(movieDb, "findAll").mockResolvedValue(noMovies);
+      try {
+        await listMovies();
+      } catch (error) {
+        expect(error.message).toMatchInlineSnapshot(`"no movies found"`);
+      }
+    });
+  });
 });
