@@ -49,11 +49,11 @@ describe("customer", () => {
 
       expect(() => makeCustomer(customerData)).not.toThrow();
 
-      const { getName, getPhone, isGold } = makeCustomer(customerData);
+      const { getName, getPhone, getIsGold } = makeCustomer(customerData);
 
       expect(getName()).toBe(customerData.name);
       expect(getPhone()).toBe(customerData.phone);
-      expect(isGold()).toEqual(customerData.isGold);
+      expect(getIsGold()).toEqual(customerData.isGold);
     });
   });
 });
