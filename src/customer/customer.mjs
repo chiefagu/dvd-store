@@ -23,7 +23,7 @@ export function buildCustomer() {
     return Object.freeze({
       getName: () => name,
       getPhone: () => phone,
-      isGold: () => isGold,
+      getIsGold: () => isGold,
     });
   };
 }
