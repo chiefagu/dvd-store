@@ -30,10 +30,12 @@ describe("customer db", () => {
 
     customerModel.findOne.mockResolvedValueOnce(customer);
 
-    const actual = await customerDb.findByName(customer.name);
+    const actual = await customerDb.findByPhone(customer.phone);
 
     expect(customerModel.findOne).toHaveBeenCalledTimes(1);
-    expect(customerModel.findOne).toHaveBeenCalledWith({ name: customer.name });
+    expect(customerModel.findOne).toHaveBeenCalledWith({
+      phone: customer.phone,
+    });
 
     expect(actual).toEqual(customer);
   });

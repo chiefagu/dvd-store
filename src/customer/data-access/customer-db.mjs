@@ -1,7 +1,7 @@
 export function makeCustomerDb({ customerModel }) {
   return Object.freeze({
     findById,
-    findByName,
+    findByPhone,
     insert,
     update,
     remove,
@@ -11,8 +11,8 @@ export function makeCustomerDb({ customerModel }) {
     return await customerModel.findById(id);
   }
 
-  async function findByName(name) {
-    return await customerModel.findOne({ name });
+  async function findByPhone(phone) {
+    return await customerModel.findOne({ phone });
   }
 
   async function insert(payload) {

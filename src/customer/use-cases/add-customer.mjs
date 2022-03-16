@@ -8,6 +8,12 @@ export function makeAddCustomer({ customerDb }) {
       isGold,
     });
 
+    const exists = await customerDb.findByPhone(getPhone());
+
+    if (exists) {
+      return exists;
+    }
+
     const customer = await customerDb.create({
       name: getName(),
       phone: getPhone(),
