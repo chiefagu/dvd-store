@@ -14,7 +14,7 @@ export function makeAddCustomer({ customerDb }) {
       return exists;
     }
 
-    const customer = await customerDb.create({
+    const customer = await customerDb.insert({
       name: getName(),
       phone: getPhone(),
       isGold: getIsGold(),

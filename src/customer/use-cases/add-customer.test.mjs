@@ -3,7 +3,7 @@ import { makeAddCustomer } from "./add-customer.mjs";
 import { buildFakeCustomer } from "../../../__tests__/fixtures/index.mjs";
 
 describe("use-case: makeAddCustomer", () => {
-  const customerDb = { create: jest.fn(), findByPhone: jest.fn() };
+  const customerDb = { insert: jest.fn(), findByPhone: jest.fn() };
 
   const addCustomer = makeAddCustomer({ customerDb });
 
@@ -16,14 +16,14 @@ describe("use-case: makeAddCustomer", () => {
       const exists = { ...customer };
 
       customerDb.findByPhone.mockResolvedValueOnce(exists);
-      customerDb.create.mockResolvedValueOnce(customer);
+      customerDb.insert.mockResolvedValueOnce(customer);
 
       const existingCustomer = await addCustomer({ name, phone, isGold });
 
       expect(customerDb.findByPhone).toHaveBeenCalledTimes(1);
       expect(customerDb.findByPhone).toHaveBeenCalledWith(customer.phone);
 
-      expect(customerDb.create).not.toHaveBeenCalled();
+      expect(customerDb.insert).not.toHaveBeenCalled();
 
       expect(existingCustomer).toEqual(customer);
     });
@@ -35,12 +35,12 @@ describe("use-case: makeAddCustomer", () => {
 
       const { name, phone, isGold } = { ...customer };
 
-      customerDb.create.mockResolvedValueOnce(customer);
+      customerDb.insert.mockResolvedValueOnce(customer);
 
       const actual = await addCustomer({ name, phone, isGold });
 
-      expect(customerDb.create).toHaveBeenCalledTimes(1);
-      expect(customerDb.create).toHaveBeenCalledWith({
+      expect(customerDb.insert).toHaveBeenCalledTimes(1);
+      expect(customerDb.insert).toHaveBeenCalledWith({
         name,
         phone,
         isGold,
