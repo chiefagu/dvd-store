@@ -4,6 +4,8 @@ import { makeEditCustomer } from "./edit-customer.mjs";
 
 import { customerDb } from "../data-access/index.mjs";
 
+import { Id } from "../../utils/Id.mjs";
+
 export const addCustomer = makeAddCustomer({ customerDb });
 export const listCustomers = makeListCustomers({ customerDb });
-export const editCustomer = makeEditCustomer({ customerDb });
+export const editCustomer = makeEditCustomer({ customerDb, Id });
