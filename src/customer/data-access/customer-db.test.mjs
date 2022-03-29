@@ -5,6 +5,7 @@ describe("customer db", () => {
   const customerModel = {
     findById: jest.fn(),
     findOne: jest.fn(),
+    find: jest.fn(),
     create: jest.fn(),
     findByIdAndUpdate: jest.fn(),
     findByIdAndRemove: jest.fn(),
@@ -23,6 +24,19 @@ describe("customer db", () => {
     expect(customerModel.findById).toHaveBeenCalledWith(customer._id);
 
     expect(actual).toEqual(customer);
+  });
+
+  it("successfully finds all customers", async () => {
+    const customers = [buildFakeCustomer(), buildFakeCustomer({ name: "Sam" })];
+
+    customerModel.find.mockResolvedValueOnce(customers);
+
+    const actual = await customerDb.findAll();
+
+    expect(customerModel.find).toHaveBeenCalledTimes(1);
+    expect(customerModel.find).toHaveBeenCalledWith(/** nothing */);
+
+    expect(actual).toEqual(customers);
   });
 
   it("successfully finds a customer matching the name", async () => {
