@@ -1,5 +1,5 @@
-export function makeDeleteCustomer({ customerDb, Id }) {
-  return async function deleteCustomer(id) {
+export function makeRemoveCustomer({ customerDb, Id }) {
+  return async function removeCustomer(id) {
     if (!(id && Id.validate(id))) {
       throw new Error("You must provide a valid id");
     }

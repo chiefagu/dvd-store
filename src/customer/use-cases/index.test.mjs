@@ -2,7 +2,7 @@ import {
   addCustomer,
   editCustomer,
   listCustomers,
-  deleteCustomer,
+  removeCustomer,
 } from "./index.mjs";
 
 describe("use-case: DI", () => {
@@ -23,7 +23,7 @@ describe("use-case: DI", () => {
   });
   describe("make delete customer", () => {
     it("should be defined", () => {
-      expect(deleteCustomer).toBeDefined();
+      expect(removeCustomer).toBeDefined();
     });
   });
 });
