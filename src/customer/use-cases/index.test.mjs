@@ -1,4 +1,9 @@
-import { addCustomer, editCustomer, listCustomers } from "./index.mjs";
+import {
+  addCustomer,
+  editCustomer,
+  listCustomers,
+  deleteCustomer,
+} from "./index.mjs";
 
 describe("use-case: DI", () => {
   describe("make add customer", () => {
@@ -14,6 +19,11 @@ describe("use-case: DI", () => {
   describe("make edit customer", () => {
     it("should be defined", () => {
       expect(editCustomer).toBeDefined();
+    });
+  });
+  describe("make delete customer", () => {
+    it("should be defined", () => {
+      expect(deleteCustomer).toBeDefined();
     });
   });
 });
