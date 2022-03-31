@@ -11,7 +11,9 @@ export function makeAddCustomer({ customerDb }) {
     const exists = await customerDb.findByPhone(getPhone());
 
     if (exists) {
-      return exists;
+      throw new Error(
+        "This phone no is already in use, review details and try again"
+      );
     }
 
     const customer = await customerDb.insert({

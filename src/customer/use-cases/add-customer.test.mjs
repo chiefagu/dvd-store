@@ -1,6 +1,9 @@
 import { makeAddCustomer } from "./add-customer.mjs";
 
-import { buildFakeCustomer } from "../../../__tests__/fixtures/index.mjs";
+import {
+  buildFakeCustomer,
+  resolve,
+} from "../../../__tests__/fixtures/index.mjs";
 
 describe("use-case: makeAddCustomer", () => {
   const customerDb = { insert: jest.fn(), findByPhone: jest.fn() };
@@ -8,7 +11,7 @@ describe("use-case: makeAddCustomer", () => {
   const addCustomer = makeAddCustomer({ customerDb });
 
   describe("given already existing customer details", () => {
-    it("return the exisiting data", async () => {
+    it("throws an error", async () => {
       const customer = buildFakeCustomer();
 
       const { name, phone, isGold } = { ...customer };
@@ -18,14 +21,16 @@ describe("use-case: makeAddCustomer", () => {
       customerDb.findByPhone.mockResolvedValueOnce(exists);
       customerDb.insert.mockResolvedValueOnce(customer);
 
-      const existingCustomer = await addCustomer({ name, phone, isGold });
+      const error = await addCustomer({ name, phone, isGold }).catch(resolve);
 
       expect(customerDb.findByPhone).toHaveBeenCalledTimes(1);
       expect(customerDb.findByPhone).toHaveBeenCalledWith(customer.phone);
 
       expect(customerDb.insert).not.toHaveBeenCalled();
 
-      expect(existingCustomer).toEqual(customer);
+      expect(error).toMatchInlineSnapshot(
+        `[Error: This phone no is already in use, review details and try again]`
+      );
     });
   });
 
