@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import { expressCallBack } from "../express-callback/index.mjs";
 import {
+  deleteCustomer,
   getCustomers,
   postCustomer,
   putCustomer,
@@ -13,6 +14,7 @@ export function customerRouter() {
   router.post("/", expressCallBack(postCustomer));
   router.get("/", expressCallBack(getCustomers));
   router.put("/:id", expressCallBack(putCustomer));
+  router.delete("/:id", expressCallBack(deleteCustomer));
 
   return router;
 }
