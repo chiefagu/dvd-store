@@ -4,7 +4,7 @@ export function makeRemoveCustomer({ customerDb, Id }) {
       throw new Error("You must provide a valid id");
     }
 
-    const deleted = await customerDb.findByIdAndRemove(id);
+    const deleted = await customerDb.remove(id);
 
     if (!deleted) {
       throw new Error("No data found");
