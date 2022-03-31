@@ -6,7 +6,7 @@ import {
 import { Id } from "../../utils/index.mjs";
 
 describe("customer use-case: removeCustomer", () => {
-  const customerDb = { findByIdAndRemove: jest.fn() };
+  const customerDb = { remove: jest.fn() };
   const removeCustomer = makeRemoveCustomer({ customerDb, Id });
 
   describe("supplied an invalid id", () => {
@@ -15,7 +15,7 @@ describe("customer use-case: removeCustomer", () => {
 
       const error = await removeCustomer(customer._id).catch(resolve);
 
-      expect(customerDb.findByIdAndRemove).not.toHaveBeenCalled();
+      expect(customerDb.remove).not.toHaveBeenCalled();
 
       expect(error).toMatchInlineSnapshot(
         `[Error: You must provide a valid id]`
@@ -28,12 +28,12 @@ describe("customer use-case: removeCustomer", () => {
       it("throws an error message", async () => {
         const customer = buildFakeCustomer();
 
-        customerDb.findByIdAndRemove.mockResolvedValueOnce(null);
+        customerDb.remove.mockResolvedValueOnce(null);
 
         const error = await removeCustomer(customer._id).catch(resolve);
 
-        expect(customerDb.findByIdAndRemove).toHaveBeenCalledTimes(1);
-        expect(customerDb.findByIdAndRemove).toHaveBeenCalledWith(customer._id);
+        expect(customerDb.remove).toHaveBeenCalledTimes(1);
+        expect(customerDb.remove).toHaveBeenCalledWith(customer._id);
 
         expect(error).toMatchInlineSnapshot(`[Error: No data found]`);
       });
@@ -43,12 +43,12 @@ describe("customer use-case: removeCustomer", () => {
       it("return the deleted data", async () => {
         const customer = buildFakeCustomer();
 
-        customerDb.findByIdAndRemove.mockResolvedValue(customer);
+        customerDb.remove.mockResolvedValue(customer);
 
         const deleted = await removeCustomer(customer._id);
 
-        expect(customerDb.findByIdAndRemove).toHaveBeenCalledTimes(1);
-        expect(customerDb.findByIdAndRemove).toHaveBeenCalledWith(customer._id);
+        expect(customerDb.remove).toHaveBeenCalledTimes(1);
+        expect(customerDb.remove).toHaveBeenCalledWith(customer._id);
 
         expect(deleted).toMatchObject(customer);
       });
